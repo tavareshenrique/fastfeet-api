@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "dev:debug": "nodemon --inspect src/server.js",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "dependencies": {
     "@sentry/node": "5.11.2",
