@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/server.js",
+    "start": "node src/server",
+    "dev": "nodemon src/server.js --ignore __tests__",
     "dev:debug": "nodemon --inspect src/server.js",
     "test": "NODE_ENV=test jest"
   },
@@ -34,6 +35,7 @@
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "sequelize-cli": "^5.5.1",
+    "sqlite3": "^4.1.1",
     "sucrase": "^3.12.1"
   }
 }
