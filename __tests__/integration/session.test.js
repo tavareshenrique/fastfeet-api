@@ -4,6 +4,7 @@ import app from '../../src/app';
 import truncate from '../utils/truncate';
 
 import fakerRecipient from '../utils/faker/fakerRecipient';
+import fakerSession from '../utils/faker/fakerSession';
 
 import factory from '../factories';
 
@@ -62,6 +63,47 @@ describe('Authentication', () => {
       });
 
     expect(response.body).toHaveProperty('token');
+  });
+
+  it('should not authenticate without email', async () => {
+    const response = await request(app)
+      .post('/sessions')
+      .send({
+        password: '123',
+      });
+
+    expect(response.status).toBe(400);
+  });
+
+  it('should not authenticate withou password', async () => {
+    const response = await request(app)
+      .post('/sessions')
+      .send({
+        email: 'ihenrits@gmail.com',
+      });
+
+    expect(response.status).toBe(400);
+  });
+
+  it('should not authenticate when user not found', async () => {
+    const response = await request(app)
+      .post('/sessions')
+      .send(fakerSession);
+
+    expect(response.status).toBe(401);
+  });
+
+  it('should not authenticate when password is invalid', async () => {
+    const user = await factory.create('User');
+
+    const response = await request(app)
+      .post('/sessions')
+      .send({
+        email: user.email,
+        password: '010203',
+      });
+
+    expect(response.status).toBe(401);
   });
 
   it('should not be able to access private routes without jwt token', async () => {
