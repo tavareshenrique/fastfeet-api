@@ -1,5 +1,8 @@
 import Sequelize, { Model } from 'sequelize';
+
 import bcrypt from 'bcryptjs';
+
+import jwt from 'jsonwebtoken';
 
 class User extends Model {
   static init(sequelize) {
@@ -27,6 +30,10 @@ class User extends Model {
 
   checkPassword(password) {
     return bcrypt.compare(password, this.password_hash);
+  }
+
+  generateToken() {
+    return jwt.sign({ id: this.id }, process.env.APP_SECRET);
   }
 }
 
