@@ -65,26 +65,6 @@ describe('Authentication', () => {
     expect(response.body).toHaveProperty('token');
   });
 
-  it('should not authenticate without email', async () => {
-    const response = await request(app)
-      .post('/sessions')
-      .send({
-        password: '123',
-      });
-
-    expect(response.status).toBe(400);
-  });
-
-  it('should not authenticate withou password', async () => {
-    const response = await request(app)
-      .post('/sessions')
-      .send({
-        email: 'ihenrits@gmail.com',
-      });
-
-    expect(response.status).toBe(400);
-  });
-
   it('should not authenticate when user not found', async () => {
     const response = await request(app)
       .post('/sessions')
@@ -121,5 +101,17 @@ describe('Authentication', () => {
       .set('Authorization', `Bearer 123123`);
 
     expect(response.status).toBe(401);
+  });
+
+  it('should not authenticate when field is required', async () => {
+    const user = await factory.create('User');
+
+    const response = await request(app)
+      .post('/sessions')
+      .send({
+        email: user.email,
+      });
+
+    expect(response.status).toBe(400);
   });
 });
