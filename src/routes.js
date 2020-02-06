@@ -5,6 +5,7 @@ import SessionController from './app/controllers/SessionController';
 import RecipientController from './app/controllers/RecipientController';
 
 import validateUserStore from './app/validators/UserStore';
+import validateUserUpdate from './app/validators/UserUpdate';
 import validateSessionStore from './app/validators/SessionStore';
 import validateRecipientStore from './app/validators/RecipientStore';
 import validateRecipientUpdate from './app/validators/RecipientUpdate';
@@ -18,6 +19,7 @@ routes.post('/sessions', validateSessionStore, SessionController.store);
 
 routes.use(authMiddleware);
 
+routes.put('/users', validateUserUpdate, UserController.update);
 routes.post('/recipients', validateRecipientStore, RecipientController.store);
 routes.put(
   '/recipients/:id',
