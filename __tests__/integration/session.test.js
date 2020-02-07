@@ -14,52 +14,37 @@ describe('Authentication', () => {
   });
 
   it('should authenticate with valid credentials', async () => {
-    const user = await factory.create('User');
+    const { email, password } = await factory.create('User');
 
     const response = await request(app)
       .post('/sessions')
       .send({
-        email: user.email,
-        password: user.password,
+        email,
+        password,
       });
 
     expect(response.status).toBe(200);
   });
 
   it('should not authenticate with invalid credentials', async () => {
-    const user = await factory.create('User');
-
     const response = await request(app)
       .post('/sessions')
       .send({
-        email: user.email,
-        password: '123123',
+        email: 'adm@dastfeet.com',
+        password: '098123',
       });
 
     expect(response.status).toBe(401);
   });
 
   it('should return jwt token when authenticated', async () => {
-    const user = await factory.create('User');
+    const { email, password } = await factory.create('User');
 
     const response = await request(app)
       .post('/sessions')
       .send({
-        email: user.email,
-        password: user.password,
-      });
-
-    expect(response.body).toHaveProperty('token');
-  });
-
-  it('should be able to access private routes when authenticated', async () => {
-    const user = await factory.create('User');
-
-    const response = await request(app)
-      .post('/sessions')
-      .send({
-        email: user.email,
-        password: user.password,
+        email,
+        password,
       });
 
     expect(response.body).toHaveProperty('token');
@@ -74,12 +59,12 @@ describe('Authentication', () => {
   });
 
   it('should not authenticate when password is invalid', async () => {
-    const user = await factory.create('User');
+    const { email } = await factory.create('User');
 
     const response = await request(app)
       .post('/sessions')
       .send({
-        email: user.email,
+        email,
         password: '010203',
       });
 
@@ -104,12 +89,12 @@ describe('Authentication', () => {
   });
 
   it('should not authenticate when field is required', async () => {
-    const user = await factory.create('User');
+    const { email } = await factory.create('User');
 
     const response = await request(app)
       .post('/sessions')
       .send({
-        email: user.email,
+        email,
       });
 
     expect(response.status).toBe(400);
