@@ -58,7 +58,7 @@ describe('User', () => {
     const response = await request(app)
       .put('/users')
       .send({
-        name: userOne.name,
+        name: userTwo.name,
         email: userOne.email,
       })
       .set('Authorization', `Bearer ${userTwo.generateToken()}`);
@@ -69,14 +69,16 @@ describe('User', () => {
   it('should not be able to change password when old password does not match', async () => {
     const user = await factory.create('User');
 
+    const { name, email } = user;
+
     const response = await request(app)
       .put('/users')
       .send({
-        name: user.name,
-        email: user.email,
+        name,
+        email,
         oldPassword: 'abc123',
-        password: 'mynewpassword123',
-        confirmPassword: 'mynewpassword123',
+        password: '123456',
+        confirmPassword: '123456',
       })
       .set('Authorization', `Bearer ${user.generateToken()}`);
 
@@ -93,7 +95,48 @@ describe('User', () => {
         password,
       });
 
-    expect(false).toEqual(false);
+    expect(response.status).toBe(400);
+  });
+
+  it('should not update a password when confirmPassword field is required', async () => {
+    const user = await factory.create('User');
+
+    const response = await request(app)
+      .put('/users')
+      .send({
+        password: '123456',
+      })
+      .set('Authorization', `Bearer ${user.generateToken()}`);
+
+    expect(response.status).toBe(400);
+  });
+
+  it('should not update user when oldPassword exists and password field is required', async () => {
+    const user = await factory.create('User');
+
+    const response = await request(app)
+      .put('/users')
+      .send({
+        oldPassword: '123456',
+      })
+      .set('Authorization', `Bearer ${user.generateToken()}`);
+
+    expect(response.status).toBe(400);
+  });
+
+  it('should not update when oldPassword is less than 6 characters', async () => {
+    const user = await factory.create('User', {
+      password: '123456',
+    });
+
+    const response = await request(app)
+      .put('/users')
+      .send({
+        oldPassword: '123',
+        password: '654321',
+        confirmPassword: '654321',
+      })
+      .set('Authorization', `Bearer ${user.generateToken()}`);
 
     expect(response.status).toBe(400);
   });
