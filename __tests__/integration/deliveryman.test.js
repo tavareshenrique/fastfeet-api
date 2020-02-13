@@ -3,6 +3,8 @@ import request from 'supertest';
 import app from '../../src/app';
 import truncate from '../utils/truncate';
 
+import fakerDeliveryman from '../utils/faker/fakerDeliveryman';
+
 import factory from '../factories';
 
 describe('Deliveryman', () => {
@@ -14,13 +16,8 @@ describe('Deliveryman', () => {
     const user = await factory.create('User');
     const response = await request(app)
       .post('/deliverymen')
-      .send({
-        name: 'João',
-        email: 'joao@gmail.com',
-      })
+      .send(fakerDeliveryman)
       .set('Authorization', `Bearer ${user.generateToken()}`);
-
-    console.log(response.error);
 
     expect(response.status).toBe(200);
   });
