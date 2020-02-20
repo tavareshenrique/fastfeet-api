@@ -33,7 +33,10 @@ routes.put(
   RecipientController.update
 );
 
+routes.get('/deliverymen', DeliverymenController.index);
 routes.post('/deliverymen', DeliverymenController.store);
+routes.put('/deliverymen/:id', DeliverymenController.update);
+routes.delete('/deliverymen/:id', DeliverymenController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
