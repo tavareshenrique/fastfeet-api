@@ -24,7 +24,7 @@ class OrderController {
         {
           model: Signature,
           as: 'signature',
-          attributes: ['name', 'path'],
+          attributes: ['name', 'path', 'url'],
         },
       ],
     });
@@ -40,12 +40,31 @@ class OrderController {
     const { name: nameDeliveryman, email } = await Deliverymen.findByPk(
       deliveryman_id
     );
-    const { name: nameRecipient } = await Recipient.findByPk(recipient_id);
+    const {
+      name: nameRecipient,
+      street,
+      number,
+      complement,
+      state,
+      city,
+      zipcode,
+    } = await Recipient.findByPk(recipient_id);
 
     await Mail.sendMail({
       to: `${nameDeliveryman} <${email}>`,
-      subject: 'Prodto disponível para entrega',
-      text: `O produto: ${product} está disponível para você fazer a entrega para o(a): ${nameRecipient}`,
+      subject: 'Produto disponível para entrega',
+      template: 'order',
+      context: {
+        deliveryman: nameDeliveryman,
+        product,
+        recipient: nameRecipient,
+        street,
+        number,
+        complement,
+        state,
+        city,
+        zipcode,
+      },
     });
 
     return res.json({
