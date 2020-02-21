@@ -7,6 +7,7 @@ import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import RecipientController from './app/controllers/RecipientController';
 import DeliverymenController from './app/controllers/DeliverymenController';
+import SignatureController from './app/controllers/SignatureController';
 import OrderController from './app/controllers/OrderController';
 
 import validateUserStore from './app/validators/UserStore';
@@ -45,5 +46,10 @@ routes.put('/orders/:id', OrderController.update);
 routes.delete('/orders/:id', OrderController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);
+routes.post(
+  '/signatures',
+  upload.single('signature'),
+  SignatureController.store
+);
 
 export default routes;
