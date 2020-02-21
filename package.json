@@ -12,7 +12,7 @@
     "posttest": "NODE_ENV=test sequelize db:migrate:undo:all"
   },
   "dependencies": {
-    "@sentry/node": "5.12.3",
+    "@sentry/node": "5.12.4",
     "bcryptjs": "^2.4.3",
     "date-fns": "^2.0.0-beta.5",
     "dotenv": "^8.2.0",
