@@ -7,6 +7,7 @@ import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import RecipientController from './app/controllers/RecipientController';
 import DeliverymenController from './app/controllers/DeliverymenController';
+import OrderController from './app/controllers/OrderController';
 
 import validateUserStore from './app/validators/UserStore';
 import validateUserUpdate from './app/validators/UserUpdate';
@@ -37,6 +38,11 @@ routes.get('/deliverymen', DeliverymenController.index);
 routes.post('/deliverymen', DeliverymenController.store);
 routes.put('/deliverymen/:id', DeliverymenController.update);
 routes.delete('/deliverymen/:id', DeliverymenController.delete);
+
+routes.get('/orders', OrderController.index);
+routes.post('/orders', OrderController.store);
+routes.put('/orders/:id', OrderController.update);
+routes.delete('/orders/:id', OrderController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
