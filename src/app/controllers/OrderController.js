@@ -1,16 +1,10 @@
-import {
-  startOfHour,
-  parseISO,
-  isBefore,
-  format,
-  subHours,
-  getHours,
-} from 'date-fns';
-import pt from 'date-fns/locale/pt';
+import { parseISO, getHours } from 'date-fns';
 import Order from '../models/Order';
 import Recipient from '../models/Recipient';
 import Deliverymen from '../models/Deliverymen';
 import Signature from '../models/Signature';
+
+import Mail from '../../lib/Mail';
 
 class OrderController {
   async index(req, res) {
@@ -42,6 +36,17 @@ class OrderController {
     const { recipient_id, deliveryman_id, product } = await Order.create(
       req.body
     );
+
+    const { name: nameDeliveryman, email } = await Deliverymen.findByPk(
+      deliveryman_id
+    );
+    const { name: nameRecipient } = await Recipient.findByPk(recipient_id);
+
+    await Mail.sendMail({
+      to: `${nameDeliveryman} <${email}>`,
+      subject: 'Prodto disponível para entrega',
+      text: `O produto: ${product} está disponível para você fazer a entrega para o(a): ${nameRecipient}`,
+    });
 
     return res.json({
       recipient_id,
