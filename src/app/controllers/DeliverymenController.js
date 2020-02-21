@@ -32,6 +32,10 @@ class DeliverymenController {
 
     const deliveryman = await Deliverymen.findByPk(id);
 
+    if (!deliveryman) {
+      return res.status(400).json({ error: 'Deliveryman not found.' });
+    }
+
     if (email !== deliveryman.email) {
       const userExists = await Deliverymen.findOne({
         where: { email },
@@ -44,7 +48,7 @@ class DeliverymenController {
 
     await deliveryman.update(req.body);
 
-    const { id: idDeliveryman, name, avatar } = await Deliverymen.findByPk(id, {
+    const { name, avatar } = await Deliverymen.findByPk(id, {
       include: [
         {
           model: File,
@@ -55,7 +59,7 @@ class DeliverymenController {
     });
 
     return res.json({
-      id: idDeliveryman,
+      id,
       name,
       email,
       avatar,
