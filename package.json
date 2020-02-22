@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node src/server",
     "dev": "nodemon src/server.js --ignore __tests__",
+    "queue": "nodemon src/queue.js",
     "dev:debug": "nodemon --inspect src/server.js",
     "pretest": "NODE_ENV=test sequelize db:migrate",
     "test": "NODE_ENV=test jest --runInBand --watchAll",
@@ -14,6 +15,7 @@
   "dependencies": {
     "@sentry/node": "5.12.4",
     "bcryptjs": "^2.4.3",
+    "bee-queue": "^1.2.3",
     "date-fns": "^2.0.0-beta.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

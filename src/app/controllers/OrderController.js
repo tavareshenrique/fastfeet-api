@@ -4,7 +4,8 @@ import Recipient from '../models/Recipient';
 import Deliverymen from '../models/Deliverymen';
 import Signature from '../models/Signature';
 
-import Mail from '../../lib/Mail';
+import OrderMail from '../jobs/OrderMail';
+import Queue from '../../lib/Queue';
 
 class OrderController {
   async index(req, res) {
@@ -50,21 +51,17 @@ class OrderController {
       zipcode,
     } = await Recipient.findByPk(recipient_id);
 
-    await Mail.sendMail({
-      to: `${nameDeliveryman} <${email}>`,
-      subject: 'Produto disponível para entrega',
-      template: 'order',
-      context: {
-        deliveryman: nameDeliveryman,
-        product,
-        recipient: nameRecipient,
-        street,
-        number,
-        complement,
-        state,
-        city,
-        zipcode,
-      },
+    await Queue.add(OrderMail.key, {
+      nameDeliveryman,
+      nameRecipient,
+      email,
+      product,
+      street,
+      number,
+      complement,
+      state,
+      city,
+      zipcode,
     });
 
     return res.json({
