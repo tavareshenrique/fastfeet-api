@@ -8,8 +8,6 @@ class CancelDelivery {
   async handle({ data }) {
     const { deliveryman, product, email } = data;
 
-    console.log(data);
-
     await Mail.sendMail({
       to: `${deliveryman} <${email}>`,
       subject: 'Entrega de Produto Cancelada',
