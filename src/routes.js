@@ -9,6 +9,7 @@ import RecipientController from './app/controllers/RecipientController';
 import DeliverymenController from './app/controllers/DeliverymenController';
 import SignatureController from './app/controllers/SignatureController';
 import OrderController from './app/controllers/OrderController';
+import OrderStatusController from './app/controllers/OrderStatusController';
 
 import validateUserStore from './app/validators/UserStore';
 import validateUserUpdate from './app/validators/UserUpdate';
@@ -40,6 +41,11 @@ routes.get('/deliverymen/:id/deliveries', DeliverymenController.show);
 routes.post('/deliverymen', DeliverymenController.store);
 routes.put('/deliverymen/:id', DeliverymenController.update);
 routes.delete('/deliverymen/:id', DeliverymenController.delete);
+
+routes.put(
+  '/deliverymen/:idDeliveryman/orders/:idOrder/status',
+  OrderStatusController.update
+);
 
 routes.get('/orders', OrderController.index);
 routes.post('/orders', OrderController.store);
