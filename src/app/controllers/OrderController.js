@@ -15,7 +15,15 @@ class OrderController {
         {
           model: Recipient,
           as: 'recipient',
-          attributes: ['name'],
+          attributes: [
+            'name',
+            'street',
+            'number',
+            'complement',
+            'state',
+            'city',
+            'zipcode',
+          ],
         },
         {
           model: Deliverymen,
