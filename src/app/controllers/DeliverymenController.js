@@ -1,5 +1,10 @@
+import { Op } from 'sequelize';
+
 import Deliverymen from '../models/Deliverymen';
 import File from '../models/File';
+import Order from '../models/Order';
+import Recipient from '../models/Recipient';
+import Signature from '../models/Signature';
 
 class DeliverymenController {
   async index(req, res) {
@@ -15,6 +20,42 @@ class DeliverymenController {
     });
 
     return res.json(deliverymen);
+  }
+
+  async show(req, res) {
+    const { id } = req.params;
+    const { delivered } = req.query;
+
+    const order = await Order.findAll({
+      where: {
+        deliveryman_id: id,
+        canceled_at: null,
+        end_date: delivered ? { [Op.ne]: null } : null,
+      },
+      attributes: ['id', 'product', 'start_date'],
+      include: [
+        {
+          model: Recipient,
+          as: 'recipient',
+          attributes: [
+            'name',
+            'street',
+            'number',
+            'complement',
+            'state',
+            'city',
+            'zipcode',
+          ],
+        },
+        {
+          model: Signature,
+          as: 'signature',
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
+    });
+
+    return res.json(order);
   }
 
   async store(req, res) {

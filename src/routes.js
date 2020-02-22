@@ -36,6 +36,7 @@ routes.put(
 );
 
 routes.get('/deliverymen', DeliverymenController.index);
+routes.get('/deliverymen/:id/deliveries', DeliverymenController.show);
 routes.post('/deliverymen', DeliverymenController.store);
 routes.put('/deliverymen/:id', DeliverymenController.update);
 routes.delete('/deliverymen/:id', DeliverymenController.delete);
