@@ -17,6 +17,8 @@ import validateUserUpdate from './app/validators/UserUpdate';
 import validateSessionStore from './app/validators/SessionStore';
 import validateRecipientStore from './app/validators/RecipientStore';
 import validateRecipientUpdate from './app/validators/RecipientUpdate';
+import validateDeliverymanStore from './app/validators/DeliverymanStore';
+import validateDeliverymanUpdate from './app/validators/DeliverymanUpdate';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -39,8 +41,16 @@ routes.put(
 
 routes.get('/deliverymen', DeliverymenController.index);
 routes.get('/deliverymen/:id/deliveries', DeliverymenController.show);
-routes.post('/deliverymen', DeliverymenController.store);
-routes.put('/deliverymen/:id', DeliverymenController.update);
+routes.post(
+  '/deliverymen',
+  validateDeliverymanStore,
+  DeliverymenController.store
+);
+routes.put(
+  '/deliverymen/:id',
+  validateDeliverymanUpdate,
+  DeliverymenController.update
+);
 routes.delete('/deliverymen/:id', DeliverymenController.delete);
 
 routes.put(
