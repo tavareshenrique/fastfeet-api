@@ -6,19 +6,57 @@
   FastFeet is an app for a fictional shipping company, FastFeet. This application is for Rocketseat Bootcamp certification.
 </h3>
 
-**Store User**
-----
-  Create a single user.
+---
+
+## Content
+
+- [User](#user)
+  - [Store](#store-user)
+  - [Update](#update-user)
+- [Session](#session)
+  - [Store](#store-session)
+- [Deliveymen](#deliverymen)
+  - [List All](#list-all-deliverymen)
+  - [Orders By Deliveyman](#orders-by-deliveryman)
+  - [Store](#store-deliveryman)
+  - [Update](#update-deliveryman)
+  - [Delete](#delete-deliveryman)
+- [Delivery Problems](#delivery-problems)
+  - [List All](#list-all-delivery-problems)
+  - [List Delivery Problem By Order Id](#list-delivery-problems-by-order-id)
+  - [Store](#store-delivery-problem)
+  - [Delete](#delete-delivery-problem)
+- [Recipient](#recipient)
+  - [Store](#store-recipient)
+  - [Update](#update-recipient)
+- [Order](#recipient)
+  - [List All](#list-all-orders)
+  - [Store](#store-order)
+  - [Update](#update-order)
+- [Order Status](#order-status)
+  - [Update](#upate-order-status)
+- [File](#file)
+  - [Store](#store-file)
+- [Signature](#file)
+  - [Store](#store-signature)
+
+---
+
+# User
+
+## **Store** User
+
+Create a single user.
 
 * **URL**
 
-  /users
+  `/users`
 
 * **Method:**
 
   `POST`
 
-*  **URL Params**
+* **URL Params**
 
    **Required:**
 
@@ -26,45 +64,49 @@
 
 * **Data Params**
 
-  ```json
-  {
-    "name": "FastFeet",
-    "email": "admin@fastfeet.com",
-	  "password": "123456"
-  }
-  ```
+    ```json
+    {
+      "name": "FastFeet",
+      "email": "admin@fastfeet.com",
+      "password": "123456"
+    }
+    ```
 
 * **Success Response:**
 
   * **Code:** 200 <br />
     **Content:**
-    `
-  {
-    "name": "FastFeet",
-    "email": "admin@fastfeet.com",
-	  "password": "123456"
-  }
-  `
 
-**Update User**
-----
-  Update a user.
+    ```json
+    {
+      "name": "FastFeet",
+      "email": "admin@fastfeet.com",
+    }
+    ```
+
+---
+
+## **Update** User
+
+Update a user.
 
 * **URL**
 
-  /users
+  `/users`
 
 * **Method:**
 
   `PUT`
 
-*  **URL Params**
+* **URL Params**
 
    **Required:**
 
-    Bearer Token
+    None
 
 * **Data Params**
+
+  `* Need Authorization - Bearer Token`
 
   ```json
   {
@@ -81,7 +123,7 @@
     "email": "ihenrits@gmail.com",
     "oldPassword": "123456",
     "password": "654321",
-	"confirmPassword": "654321"
+    "confirmPassword": "654321"
   }
   ```
 
@@ -89,10 +131,901 @@
 
   * **Code:** 200 <br />
     **Content:**
-    `
+
+    ```json
+    {
+      "id": 1,
+      "name": "Henrique Tavares",
+      "email": "ihenrits@gmail.com"
+    }
+    ```
+
+---
+
+# Session
+
+## **Store** Session
+
+Start a session.
+
+* **URL**
+
+  `/sessions`
+
+* **Method:**
+
+  `POST`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+  ```json
   {
-    "id": 1,
-    "name": "Henrique Tavares",
-    "email": "ihenrits@gmail.com"
+    "email": "admin@fastfeet.com",
+    "password": "123456"
   }
-  `
+  ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    {
+      "user": {
+        "id": 1,
+        "name": "FastFeet",
+        "email": "admin@fastfeet.com"
+      },
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9. eyJpZCI6MSwiaWF0IjoxNTgyODA2OTYyLCJleHAiOjE1ODM0MTE3NjJ9.nfadyR3In1javb1nqjjzIcK3k9ffFDQTcTkat3l8_D0"
+    }
+    ```
+
+---
+
+# Deliveryman
+
+## **List All** Deliverymen
+
+ListAll Deliverymen.
+
+* **URL**
+
+  `/deliverymen`
+
+* **Method:**
+
+  `GET`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+  `* Need Authorization - Bearer Token`
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    [
+      {
+        "id": 1,
+        "name": "Henrique Tavares",
+        "email": "ihenrits@gmail.com",
+        "avatar_id": null,
+        "avatar": null
+      }
+    ]
+    ```
+
+---
+
+## **Orders by** Deliveryman
+
+List orders assigned to the delivery person that are not delivered or canceled. Also list orders already delivered by the deliveryman.
+
+* **URL**
+
+  `/deliverymen/:id/deliveries`
+
+* **Method:**
+
+  `GET`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+    **Optional**
+
+  * For list orders already delivered by the deliveryman
+
+      `delivered: true`
+
+      **Ex:**  `/deliverymen/:id/deliveries?delivered=true`
+
+* **Data Params**
+
+  `* Need Authorization - Bearer Token`
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    [
+      {
+        "id": 1,
+        "product": "Any Product",
+        "start_date": "2020-02-27T17:20:00.000Z",
+        "recipient": {
+          "name": "José da Silva",
+          "street": "Rua Doze 11 Quadra 8 Conjunto Vinhais",
+          "number": "629",
+          "complement": "Vinhais",
+          "state": "MA",
+          "city": "São Luís",
+          "zipcode": "65071970"
+        },
+        "signature": {
+          "url": "http://localhost:3333/signatures/b54719a89ab55cde8e1a9b61b85c88c3.png",
+          "name": "2018-06-09-saida-marca-simbolozaal.png",
+          "path": "b54719a89ab55cde8e1a9b61b85c88c3.png"
+        }
+      }
+    ]
+    ```
+
+---
+
+## **Store** Deliveryman
+
+Store Deliveryman.
+
+* **URL**
+
+  `/deliverymen`
+
+* **Method:**
+
+  `POST`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+  `* Need Authorization - Bearer Token`
+
+  ```json
+  {
+    "name": "Henrique Tavares",
+    "email": "ihenrits@gmail.com",
+  }
+  ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    {
+      "name": "Henrique Tavares",
+      "email": "ihenrits@gmail.com",
+    }
+    ```
+
+---
+
+## **Update** Deliveryman
+
+Update Deliveryman.
+
+* **URL**
+
+  `/deliverymen/:id`
+
+* **Method:**
+
+  `PUT`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+  `* Need Authorization - Bearer Token`
+
+  ```json
+  {
+    "name": "Henrique Tavares",
+    "email": "ihenrits@gmail.com",
+    "avatar_id": 1
+  }
+  ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    {
+      "id": "1",
+      "name": "Henrique Tavares",
+      "email": "ihenrits@gmail.com",
+      "avatar": {
+        "url": "http://localhost:3333/files/0d28a7b2bd2696d65dc9f1fa86e7b501.jpg",
+        "id": 1,
+        "path": "0d28a7b2bd2696d65dc9f1fa86e7b501.jpg"
+      }
+    }
+    ```
+
+---
+
+## **Delete** Deliveryman
+
+Delete Deliveryman.
+
+* **URL**
+
+  `/deliverymen/:id`
+
+* **Method:**
+
+  `DELETE`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+    None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** No body returned for response
+
+---
+
+# Delivery Problems
+
+## **List All** Delivery Problems
+
+List All Delivery Problems.
+
+* **URL**
+
+  `/delivery/problems`
+
+* **Method:**
+
+  `GET`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+    None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    [
+      {
+        "id": 1,
+        "description": "The recipient was not at home.",
+        "delivery": {
+          "id": 1,
+          "product": "Any Product",
+          "start_date": "2020-02-27T17:20:00.000Z",
+          "end_date": "2020-02-27T22:20:00.000Z",
+          "canceled_at": null
+        }
+      }
+    ]
+    ```
+
+---
+
+## **List** Delivery Problems By **Order ID**
+
+List Delivery Problems by Order Id.
+
+* **URL**
+
+  `/delivery/:id/problems`
+
+* **Method:**
+
+  `GET`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+    None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    [
+      {
+        "id": 1,
+        "description": "The recipient was not at home.",
+        "delivery": {
+          "id": 1,
+          "product": "Any Product",
+          "start_date": "2020-02-27T17:20:00.000Z",
+          "end_date": "2020-02-27T22:20:00.000Z",
+          "canceled_at": null
+        }
+      }
+    ]
+    ```
+
+---
+
+## **Store** Delivery Problem
+
+Store Delivery Problem.
+
+* **URL**
+
+  `/delivery/:id/problems`
+
+* **Method:**
+
+  `POST`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+    ```json
+    {
+     "description": "The recipient was not at home."
+    }
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    {
+      "id": "1",
+      "description": "The recipient was not at home."
+    }
+    ```
+
+---
+
+## **Delete** Delivery Problem
+
+Delete Delivery Problem for Cancel Delivery.
+
+* **URL**
+
+  `/delivery/:id/cancel-delivery`
+
+* **Method:**
+
+  `DELETE`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+    None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** No body returned for response
+
+---
+
+# Recipient
+
+## **Store** Recipient
+
+Store Recipient.
+
+* **URL**
+
+  `/recipients`
+
+* **Method:**
+
+  `POST`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+    ```json
+    {
+      "name": "José da Silva",
+      "street": "Rua Doze 11 Quadra 8 Conjunto Vinhais",
+      "number": "629",
+      "complement": "Vinhais",
+      "state": "MA",
+      "city": "São Luís",
+      "zipcode": "65071970"
+    }
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    {
+      "id": 1,
+      "name": "José da Silva",
+      "street": "Rua Doze 11 Quadra 8 Conjunto Vinhais",
+      "number": "629",
+      "complement": "Vinhais",
+      "state": "MA",
+      "city": "São Luís",
+      "zipcode": "65071970"
+    }
+    ```
+
+---
+
+## **Update** Recipient
+
+Update Recipient.
+
+* **URL**
+
+  `/recipients/:id`
+
+* **Method:**
+
+  `PUT`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+    ```json
+    {
+      "name": "José da Silva Jr.",
+      "street": "Rua Doze 11 Quadra 8 Conjunto Vinhais",
+      "number": "640",
+      "complement": "Não Tem",
+      "state": "MA",
+      "city": "São Luís",
+      "zipcode": "65071970"
+    }
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    {
+      "id": 1,
+      "name": "José da Silva Jr.",
+      "street": "Rua Doze 11 Quadra 8 Conjunto Vinhais",
+      "number": "640",
+      "complement": "Não Tem",
+      "state": "MA",
+      "city": "São Luís",
+      "zipcode": "65071970"
+    }
+    ```
+
+---
+
+# Order
+
+## **List All** Orders
+
+List All Orders.
+
+* **URL**
+
+  `/orders`
+
+* **Method:**
+
+  `GET`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    [
+      {
+        "id": 1,
+        "product": "Any Product",
+        "canceled_at": null,
+        "start_date": "2020-02-27T17:20:00.000Z",
+        "end_date": "2020-02-27T22:20:00.000Z",
+        "recipient": {
+          "name": "José da Silva Jr.",
+          "street": "Rua Doze 11 Quadra 8 Conjunto Vinhais",
+          "number": "640",
+          "complement": "Não Tem",
+          "state": "MA",
+          "city": "São Luís",
+          "zipcode": "65071970"
+        },
+        "deliveryman": {
+          "name": "Henrique Tavares",
+          "email": "ihenrits@gmail.com"
+        },
+        "signature": {
+          "url": "http://localhost:3333/signatures/b54719a89ab55cde8e1a9b61b85c88c3.png",
+          "name": "2018-06-09-saida-marca-simbolozaal.png",
+          "path": "b54719a89ab55cde8e1a9b61b85c88c3.png"
+        }
+      }
+    ]
+    ```
+
+---
+
+## **Store** Order
+
+Store Order.
+
+* **URL**
+
+  `/orders`
+
+* **Method:**
+
+  `POST`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+    ```json
+    {
+      "product": "New Any Product",
+      "recipient_id": 1,
+      "deliveryman_id": 1
+    }
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    {
+      "recipient_id": 1,
+      "deliveryman_id": 1,
+      "product": "New Any Product"
+    }
+    ```
+
+---
+
+## **Update** Order
+
+Update Order.
+
+* **URL**
+
+  `/orders`
+
+* **Method:**
+
+  `PUT`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+    ```json
+    {
+      "product": "Any Product 2",
+      "recipient_id": 1,
+      "deliveryman_id": 1
+    }
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    {
+      "recipient_id": 1,
+      "deliveryman_id": 1,
+      "signature_id": 1,
+      "product": "Any Product 2",
+      "canceled_at": null,
+      "end_date": null
+    }
+    ```
+
+---
+
+# Order Status
+
+## **Update** Order Status
+
+Update Order Status.
+
+* **URL**
+
+  `/deliverymen/:idDeliverymen/orders/:idOrders/status`
+
+* **Method:**
+
+  `PUT`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+    ```json
+    {
+      "start_date": "2020-02-27T14:20:00-03:00",
+      "end_date": "2020-02-27T19:20:00-03:00",
+      "signature_id": 1
+    }
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    {
+      "id": 1,
+      "product": "Any Product",
+      "start_date": "2020-02-27T17:20:00.000Z",
+      "end_date": "2020-02-27T22:20:00.000Z",
+      "recipient": {
+        "name": "José da Silva",
+        "street": "Rua Doze 11 Quadra 8 Conjunto Vinhais",
+        "number": "629",
+        "complement": "Vinhais",
+        "state": "MA",
+        "city": "São Luís",
+        "zipcode": "65071970"
+      },
+      "deliveryman": {
+        "name": "Henrique Tavares",
+        "email": "ihenrits@gmail.com"
+      },
+      "signature": {
+        "url": "http://localhost:3333/signatures/b54719a89ab55cde8e1a9b61b85c88c3.png",
+        "name": "2018-06-09-saida-marca-simbolozaal.png",
+        "path": "b54719a89ab55cde8e1a9b61b85c88c3.png"
+      }
+    }
+    ```
+
+---
+
+# File
+
+## **Store** File
+
+Store File.
+
+* **URL**
+
+  `/files`
+
+* **Method:**
+
+  `POST`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+    **Select:** `Multipart Form`
+
+    `file - YOUR FILE`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    {
+      "url": "http://localhost:3333/files/0d28a7b2bd2696d65dc9f1fa86e7b501.jpg",
+      "id": 1,
+      "name": "E58C073E-A75D-4A58-B96E-D6495C5AB1D8.jpg",
+      "path": "0d28a7b2bd2696d65dc9f1fa86e7b501.jpg",
+      "updatedAt": "2020-02-27T13:12:19.125Z",
+      "createdAt": "2020-02-27T13:12:19.125Z"
+    }
+    ```
+
+---
+
+# Signature
+
+## **Store** Signature
+
+Signature File.
+
+* **URL**
+
+  `/signatures`
+
+* **Method:**
+
+  `POST`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+    **Select:** `Multipart Form`
+
+    `signature - YOUR SIGNATURE IMAGE`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    {
+      "url": "http://localhost:3333/signatures/b54719a89ab55cde8e1a9b61b85c88c3.png",
+      "id": 1,
+      "name": "2018-06-09-some-name.png",
+      "path": "b54719a89ab55cde8e1a9b61b85c88c3.png",
+      "updatedAt": "2020-02-27T12:58:10.459Z",
+      "createdAt": "2020-02-27T12:58:10.459Z"
+    }
+    ```
+
+---
+
+## Author
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="http://github.com/tavareshenrique/">
+        <img src="https://avatars1.githubusercontent.com/u/27022914?v=4" width="100px;" alt="Henrique Tavares"/>
+        <br />
+        <sub>
+          <b>Henrique Tavares</b>
+        </sub>
+       </a>
+       <br />
+       <a href="https://github.com/tavareshenrique/fastfeet-api/commits?author=tavareshenrique" title="Code">💻</a>
+    </td>
+  </tr>
+</table>
