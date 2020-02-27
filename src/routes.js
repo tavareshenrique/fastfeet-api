@@ -1,4 +1,6 @@
-import { Router } from 'express';
+import {
+  Router
+} from 'express';
 import multer from 'multer';
 import multerConfig from './config/multer';
 
@@ -39,6 +41,7 @@ routes.use(authMiddleware);
 routes.put('/users', validateUserUpdate, UserController.update);
 
 // Recipients
+routes.get('/recipients', RecipientController.index);
 routes.post('/recipients', validateRecipientStore, RecipientController.store);
 routes.put(
   '/recipients/:id',
