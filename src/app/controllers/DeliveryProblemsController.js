@@ -50,7 +50,7 @@ class DeliveryProblemsController {
     if (!deliveryProblems) {
       return res
         .status(400)
-        .json({ error: 'Deliveryman Problem for this order doesnt exists.' });
+        .json({ error: 'Delivery Problem for this order doesnt exists.' });
     }
 
     return res.json(deliveryProblems);
