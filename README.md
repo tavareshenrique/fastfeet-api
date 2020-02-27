@@ -29,6 +29,7 @@
   - [Store](#store-delivery-problem)
   - [Delete](#delete-delivery-problem)
 - [Recipient](#recipient)
+  - [List All](#list-all-recipients)
   - [Store](#store-recipient)
   - [Update](#update-recipient)
 - [Order](#recipient)
@@ -210,6 +211,10 @@ ListAll Deliverymen.
    **Required:**
 
     None
+
+    **Optional:**
+
+    name=[string]
 
 * **Data Params**
 
@@ -593,6 +598,55 @@ Delete Delivery Problem for Cancel Delivery.
 ---
 
 # Recipient
+
+## **List All** Recipients
+
+List All Recipients.
+
+* **URL**
+
+  `/recipients`
+
+* **Method:**
+
+  `GET`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+    **Required:**
+    name=[string]
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```json
+    [
+      {
+        "id": 2,
+        "name": "Bobbs",
+        "street": "Rua Doze 11 Quadra 8 Conjunto Vinhais",
+        "number": "629",
+        "complement": "Vinhais",
+        "state": "MA",
+        "city": "São Luís",
+        "zipcode": "65071970",
+        "createdAt": "2020-02-21T00:25:36.844Z",
+        "updatedAt": "2020-02-21T00:25:36.844Z"
+      }
+    ]
+    ```
+
+---
 
 ## **Store** Recipient
 
