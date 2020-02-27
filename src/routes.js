@@ -21,19 +21,24 @@ import validateDeliverymanStore from './app/validators/DeliverymanStore';
 import validateDeliverymanUpdate from './app/validators/DeliverymanUpdate';
 import validateOrderStore from './app/validators/OrderStore';
 import validateOrderUpdate from './app/validators/OrderUpdate';
+import validateDeliveryProblemsStore from './app/validators/DeliveryProblemsStore';
+import validateOrderStatusUpdate from './app/validators/OrderStatusUpdate';
 
 import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 const upload = multer(multerConfig);
 
+// User && Session
 routes.post('/users', validateUserStore, UserController.store);
 routes.post('/sessions', validateSessionStore, SessionController.store);
 
 routes.use(authMiddleware);
 
+// Update Users
 routes.put('/users', validateUserUpdate, UserController.update);
 
+// Recipients
 routes.post('/recipients', validateRecipientStore, RecipientController.store);
 routes.put(
   '/recipients/:id',
@@ -41,6 +46,7 @@ routes.put(
   RecipientController.update
 );
 
+// Deliverymen
 routes.get('/deliverymen', DeliverymenController.index);
 routes.get('/deliverymen/:id/deliveries', DeliverymenController.show);
 routes.post(
@@ -53,26 +59,33 @@ routes.put(
   validateDeliverymanUpdate,
   DeliverymenController.update
 );
-routes.delete('/deliverymen/:id', DeliverymenController.delete);
-
 routes.put(
   '/deliverymen/:idDeliveryman/orders/:idOrder/status',
+  validateOrderStatusUpdate,
   OrderStatusController.update
 );
+routes.delete('/deliverymen/:id', DeliverymenController.delete);
 
+// Orders
 routes.get('/orders', OrderController.index);
 routes.post('/orders', validateOrderStore, OrderController.store);
 routes.put('/orders/:id', validateOrderUpdate, OrderController.update);
 routes.delete('/orders/:id', OrderController.delete);
 
+// Delivery
 routes.get('/delivery/problems', DeliveryProblemsController.index);
 routes.get('/delivery/:id/problems', DeliveryProblemsController.show);
-routes.post('/delivery/:id/problems', DeliveryProblemsController.store);
+routes.post(
+  '/delivery/:id/problems',
+  validateDeliveryProblemsStore,
+  DeliveryProblemsController.store
+);
 routes.delete(
   '/delivery/:id/cancel-delivery',
   DeliveryProblemsController.delete
 );
 
+// Files && Signature
 routes.post('/files', upload.single('file'), FileController.store);
 routes.post(
   '/signatures',
