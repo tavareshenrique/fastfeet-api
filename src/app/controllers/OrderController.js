@@ -98,14 +98,18 @@ class OrderController {
     const order = await Order.findByPk(id);
 
     if (!order) {
-      return res.status(400).json({ error: 'Order not found.' });
+      return res.status(400).json({
+        error: 'Order not found.',
+      });
     }
 
     if (start_date) {
       const hourStart = getHours(parseISO(start_date));
 
       if (hourStart < 8 || hourStart > 18) {
-        return res.status(400).json({ error: 'Start time not allowed.' });
+        return res.status(400).json({
+          error: 'Start time not allowed.',
+        });
       }
     }
 
