@@ -8,7 +8,18 @@ import Signature from '../models/Signature';
 
 class DeliverymenController {
   async index(req, res) {
+    const { name: nameParam } = req.query;
+
+    const where = nameParam
+      ? {
+          name: {
+            [Op.iLike]: `%${nameParam}%`,
+          },
+        }
+      : null;
+
     const deliverymen = await Deliverymen.findAll({
+      where,
       attributes: ['id', 'name', 'email', 'avatar_id'],
       include: [
         {
@@ -30,7 +41,11 @@ class DeliverymenController {
       where: {
         deliveryman_id: id,
         canceled_at: null,
-        end_date: delivered ? { [Op.ne]: null } : null,
+        end_date: delivered
+          ? {
+              [Op.ne]: null,
+            }
+          : null,
       },
       attributes: ['id', 'product', 'start_date'],
       include: [
@@ -74,16 +89,22 @@ class DeliverymenController {
     const deliveryman = await Deliverymen.findByPk(id);
 
     if (!deliveryman) {
-      return res.status(400).json({ error: 'Deliveryman not found.' });
+      return res.status(400).json({
+        error: 'Deliveryman not found.',
+      });
     }
 
     if (email !== deliveryman.email) {
       const userExists = await Deliverymen.findOne({
-        where: { email },
+        where: {
+          email,
+        },
       });
 
       if (userExists) {
-        return res.status(400).json({ error: 'Deliveryman already exists.' });
+        return res.status(400).json({
+          error: 'Deliveryman already exists.',
+        });
       }
     }
 
