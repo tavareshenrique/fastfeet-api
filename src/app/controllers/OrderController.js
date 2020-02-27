@@ -1,4 +1,5 @@
 import { parseISO, getHours } from 'date-fns';
+import { Op } from 'sequelize';
 import Order from '../models/Order';
 import Recipient from '../models/Recipient';
 import Deliverymen from '../models/Deliverymen';
@@ -9,7 +10,18 @@ import Queue from '../../lib/Queue';
 
 class OrderController {
   async index(req, res) {
+    const { product: productName } = req.query;
+
+    const where = productName
+      ? {
+          product: {
+            [Op.iLike]: `%${productName}%`,
+          },
+        }
+      : null;
+
     const order = await Order.findAll({
+      where,
       attributes: ['id', 'product', 'canceled_at', 'start_date', 'end_date'],
       include: [
         {
