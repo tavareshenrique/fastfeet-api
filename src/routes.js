@@ -19,6 +19,8 @@ import validateRecipientStore from './app/validators/RecipientStore';
 import validateRecipientUpdate from './app/validators/RecipientUpdate';
 import validateDeliverymanStore from './app/validators/DeliverymanStore';
 import validateDeliverymanUpdate from './app/validators/DeliverymanUpdate';
+import validateOrderStore from './app/validators/OrderStore';
+import validateOrderUpdate from './app/validators/OrderUpdate';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -59,8 +61,8 @@ routes.put(
 );
 
 routes.get('/orders', OrderController.index);
-routes.post('/orders', OrderController.store);
-routes.put('/orders/:id', OrderController.update);
+routes.post('/orders', validateOrderStore, OrderController.store);
+routes.put('/orders/:id', validateOrderUpdate, OrderController.update);
 routes.delete('/orders/:id', OrderController.delete);
 
 routes.get('/delivery/problems', DeliveryProblemsController.index);
