@@ -33,10 +33,8 @@ class App {
       express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
     );
     this.server.use(
-      '/signature',
-      express.static(
-        path.resolve(__dirname, '..', 'tmp', 'uploads', 'signatures')
-      )
+      '/signatures',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'signatures'))
     );
   }
 
