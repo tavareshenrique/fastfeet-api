@@ -32,10 +32,12 @@
   - [List All](#list-all-recipients)
   - [Store](#store-recipient)
   - [Update](#update-recipient)
+  - [Delete](#delete-recipient)
 - [Order](#recipient)
   - [List All](#list-all-orders)
   - [Store](#store-order)
   - [Update](#update-order)
+  - [Delete](#delete-order)
 - [Order Status](#order-status)
   - [Update](#upate-order-status)
 - [File](#file)
@@ -756,6 +758,37 @@ Update Recipient.
 
 ---
 
+## **Delete** Recipient
+
+Delete Recipient.
+
+* **URL**
+
+  `/recipients/:id`
+
+* **Method:**
+
+  `DELETE`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+    None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** No body returned for response
+
+---
+
 # Order
 
 ## **List All** Orders
@@ -913,6 +946,35 @@ Update Order.
     ```
 
 ---
+
+## **Delete** Order
+
+Delete Order.
+
+* **URL**
+
+  `/order/:id`
+
+* **Method:**
+
+  `DELETE`
+
+* **URL Params**
+
+   **Required:**
+
+    None
+
+* **Data Params**
+
+    `* Need Authorization - Bearer Token`
+
+    None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** No body returned for response
 
 # Order Status
 
