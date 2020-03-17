@@ -1,6 +1,4 @@
-import {
-  Router
-} from 'express';
+import { Router } from 'express';
 import multer from 'multer';
 import multerConfig from './config/multer';
 
@@ -48,6 +46,7 @@ routes.put(
   validateRecipientUpdate,
   RecipientController.update
 );
+routes.delete('/recipients/:id', RecipientController.delete);
 
 // Deliverymen
 routes.get('/deliverymen', DeliverymenController.index);
@@ -92,7 +91,7 @@ routes.delete(
 routes.post('/files', upload.single('file'), FileController.store);
 routes.post(
   '/signatures',
-  upload.single('signature'),
+  upload.single('signatures'),
   SignatureController.store
 );
 
