@@ -3,18 +3,31 @@ import Recipient from '../models/Recipient';
 
 class RecipientController {
   async index(req, res) {
-    const { name: nameParam } = req.query;
+    const { name: nameParam, id: idParam } = req.query;
 
-    const where = nameParam
-      ? {
-          name: {
-            [Op.iLike]: `%${nameParam}%`,
-          },
-        }
-      : null;
+    let where = null;
+    if (nameParam && idParam) {
+      where = {
+        name: {
+          [Op.iLike]: `%${nameParam}%`,
+        },
+        id: idParam,
+      };
+    } else if (nameParam && !idParam) {
+      where = {
+        name: {
+          [Op.iLike]: `%${nameParam}%`,
+        },
+      };
+    } else if (!nameParam && idParam) {
+      where = {
+        id: idParam,
+      };
+    }
 
     const recipient = await Recipient.findAll({
       where,
+      order: [['id', 'ASC']],
     });
 
     return res.json(recipient);
