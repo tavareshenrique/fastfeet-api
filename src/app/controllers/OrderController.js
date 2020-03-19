@@ -23,6 +23,7 @@ class OrderController {
     const order = await Order.findAll({
       where,
       attributes: ['id', 'product', 'canceled_at', 'start_date', 'end_date'],
+      order: [['id', 'ASC']],
       include: [
         {
           model: Recipient,
@@ -49,6 +50,22 @@ class OrderController {
         },
       ],
     });
+
+    return res.json(order);
+  }
+
+  async show(req, res) {
+    const { id } = req.params;
+
+    const order = await Order.findByPk(id, {
+      order: [['id', 'ASC']],
+    });
+
+    if (!order) {
+      return res.status(400).json({
+        error: 'Order not found.',
+      });
+    }
 
     return res.json(order);
   }
