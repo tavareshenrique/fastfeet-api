@@ -217,6 +217,7 @@ ListAll Deliverymen.
     **Optional:**
 
     name=[string]
+    id=[number]
 
 * **Data Params**
 
@@ -621,6 +622,7 @@ List All Recipients.
 
     **Required:**
     name=[string]
+    id=[number]
 
 * **Data Params**
 
