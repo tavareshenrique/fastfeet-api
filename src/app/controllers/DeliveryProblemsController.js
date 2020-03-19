@@ -9,6 +9,7 @@ class DeliveryProblemsController {
   async index(req, res) {
     const deliveryProblems = await DeliveryProblems.findAll({
       attributes: ['id', 'description'],
+      order: [['id', 'ASC']],
       include: [
         {
           model: Order,
@@ -32,6 +33,7 @@ class DeliveryProblemsController {
 
     const deliveryProblems = await DeliveryProblems.findByPk(id, {
       attributes: ['id', 'description'],
+      order: [['id', 'ASC']],
       include: [
         {
           model: Order,
