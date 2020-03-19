@@ -8,19 +8,32 @@ import Signature from '../models/Signature';
 
 class DeliverymenController {
   async index(req, res) {
-    const { name: nameParam } = req.query;
+    const { name: nameParam, id: idParam } = req.query;
 
-    const where = nameParam
-      ? {
-          name: {
-            [Op.iLike]: `%${nameParam}%`,
-          },
-        }
-      : null;
+    let where = null;
+    if (nameParam && idParam) {
+      where = {
+        name: {
+          [Op.iLike]: `%${nameParam}%`,
+        },
+        id: idParam,
+      };
+    } else if (nameParam && !idParam) {
+      where = {
+        name: {
+          [Op.iLike]: `%${nameParam}%`,
+        },
+      };
+    } else if (!nameParam && idParam) {
+      where = {
+        id: idParam,
+      };
+    }
 
     const deliverymen = await Deliverymen.findAll({
       where,
       attributes: ['id', 'name', 'email', 'avatar_id'],
+      order: [['id', 'ASC']],
       include: [
         {
           model: File,
@@ -47,6 +60,7 @@ class DeliverymenController {
             }
           : null,
       },
+      order: [['id', 'ASC']],
       attributes: ['id', 'product', 'start_date'],
       include: [
         {
