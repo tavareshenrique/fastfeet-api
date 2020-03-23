@@ -267,6 +267,7 @@ List orders assigned to the delivery person that are not delivered or canceled. 
   * For list orders already delivered by the deliveryman
 
       delivered=[boolean]
+      page=[number][default = 1]
 
       **Ex:**  `/deliverymen/:id/deliveries?delivered=true`
 
