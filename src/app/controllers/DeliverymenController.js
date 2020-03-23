@@ -48,7 +48,7 @@ class DeliverymenController {
 
   async show(req, res) {
     const { id } = req.params;
-    const { delivered } = req.query;
+    const { delivered, page = 1 } = req.query;
 
     const order = await Order.findAll({
       where: {
@@ -62,19 +62,12 @@ class DeliverymenController {
       },
       order: [['id', 'ASC']],
       attributes: ['id', 'product', 'start_date'],
+      limit: 5,
+      offset: (page - 1) * 5,
       include: [
         {
           model: Recipient,
           as: 'recipient',
-          attributes: [
-            'name',
-            'street',
-            'number',
-            'complement',
-            'state',
-            'city',
-            'zipcode',
-          ],
         },
         {
           model: Signature,
