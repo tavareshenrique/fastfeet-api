@@ -3,7 +3,7 @@
 </h1>
 
 <h3 align="center">
-  FastFeet is an app for a fictional shipping company, FastFeet. This application is for Rocketseat Bootcamp certification.
+  FastFeet is an application for a fictional shipping company, FastFeet. This application is for Rocketseat Bootcamp certification and this Back-End was built in NodeJS.
 </h3>
 
 ---
@@ -1134,6 +1134,40 @@ Signature File.
       "createdAt": "2020-02-27T12:58:10.459Z"
     }
     ```
+
+---
+
+## Built with
+
+- [Express](https://expressjs.com/pt-br/)
+- [Nodemon](https://nodemon.io/)
+- [Sucrase](https://github.com/alangpierce/sucrase)
+- [Sentry](https://sentry.io/)
+- [bcryptjs](https://github.com/dcodeIO/bcrypt.js#readme)
+- [bee-queue](https://github.com/bee-queue/bee-queue)
+- [cors](https://expressjs.com/en/resources/middleware/cors.html)
+- [date-fns](https://date-fns.org/)
+- [dotenv](https://github.com/motdotla/dotenv#readme)
+- [express-async-errors](https://github.com/davidbanham/express-async-errors#readme)
+- [express-handlebars](https://github.com/ericf/express-handlebars)
+- [JWT Auth](https://github.com/auth0/node-jsonwebtoken)
+- [multer](https://github.com/expressjs/multer)
+- [nodemailer](https://nodemailer.com/about/)
+- [nodemailer-express-handlebars](https://github.com/yads/nodemailer-express-handlebars)
+- [youch](https://github.com/pradel/react-responsive-modal#readme)
+- [yup](https://github.com/davidhu2000/react-spinners)
+- [sequelize](https://sequelize.org/)
+- [pg](https://github.com/brianc/node-postgres)
+- [pg-hstore](https://github.com/scarney81/pg-hstore)
+- [Postgres](https://www.postgresql.org/)
+- [Redis](https://redis.io/)
+- [SQLite](https://www.sqlite.org/index.html)
+- [ESLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [JEST](https://jestjs.io/)
+- [supertest](https://github.com/visionmedia/supertest)
+- [factory-girl](https://github.com/simonexmachina/factory-girl#readme)
+- [Faker](https://github.com/marak/Faker.js/)
 
 ---
 
