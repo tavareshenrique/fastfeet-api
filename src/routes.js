@@ -29,9 +29,10 @@ import authMiddleware from './app/middlewares/auth';
 const routes = new Router();
 const upload = multer(multerConfig);
 
-// User && Session
 routes.post('/users', validateUserStore, UserController.store);
 routes.post('/sessions', validateSessionStore, SessionController.store);
+routes.get('/deliverymen', DeliverymenController.index);
+routes.get('/deliverymen/:id/deliveries', DeliverymenController.show);
 
 routes.use(authMiddleware);
 
@@ -49,8 +50,6 @@ routes.put(
 routes.delete('/recipients/:id', RecipientController.delete);
 
 // Deliverymen
-routes.get('/deliverymen', DeliverymenController.index);
-routes.get('/deliverymen/:id/deliveries', DeliverymenController.show);
 routes.post(
   '/deliverymen',
   validateDeliverymanStore,
