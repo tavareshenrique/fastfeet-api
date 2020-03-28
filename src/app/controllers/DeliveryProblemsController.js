@@ -31,8 +31,11 @@ class DeliveryProblemsController {
   async show(req, res) {
     const { id } = req.params;
 
-    const deliveryProblems = await DeliveryProblems.findByPk(id, {
-      attributes: ['id', 'description'],
+    const deliveryProblems = await DeliveryProblems.findAll({
+      where: {
+        delivery_id: id,
+      },
+      attributes: ['id', 'description', 'created_at'],
       order: [['id', 'ASC']],
       include: [
         {
