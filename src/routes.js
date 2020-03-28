@@ -33,6 +33,7 @@ routes.post('/users', validateUserStore, UserController.store);
 routes.post('/sessions', validateSessionStore, SessionController.store);
 routes.get('/deliverymen', DeliverymenController.index);
 routes.get('/deliverymen/:id/deliveries', DeliverymenController.show);
+routes.get('/delivery/:id/problems', DeliveryProblemsController.show);
 
 routes.use(authMiddleware);
 
@@ -76,7 +77,6 @@ routes.delete('/orders/:id', OrderController.delete);
 
 // Delivery
 routes.get('/delivery/problems', DeliveryProblemsController.index);
-routes.get('/delivery/:id/problems', DeliveryProblemsController.show);
 routes.post(
   '/delivery/:id/problems',
   validateDeliveryProblemsStore,
