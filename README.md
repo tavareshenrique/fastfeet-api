@@ -221,8 +221,6 @@ ListAll Deliverymen.
 
 * **Data Params**
 
-  `* Need Authorization - Bearer Token`
-
   None
 
 * **Success Response:**
@@ -272,8 +270,6 @@ List orders assigned to the delivery person that are not delivered or canceled. 
       **Ex:**  `/deliverymen/:id/deliveries?delivered=true`
 
 * **Data Params**
-
-  `* Need Authorization - Bearer Token`
 
   None
 
@@ -500,8 +496,6 @@ List Delivery Problems by Order Id.
     None
 
 * **Data Params**
-
-    `* Need Authorization - Bearer Token`
 
     None
 
@@ -1137,7 +1131,7 @@ Signature File.
 
 ---
 
-## Built with
+## Technologies
 
 - [Express](https://expressjs.com/pt-br/)
 - [Nodemon](https://nodemon.io/)
