@@ -32,7 +32,7 @@ class DeliverymenController {
 
     const deliverymen = await Deliverymen.findAll({
       where,
-      attributes: ['id', 'name', 'email', 'avatar_id'],
+      attributes: ['id', 'name', 'email', 'avatar_id', 'created_at'],
       order: [['id', 'ASC']],
       include: [
         {
@@ -56,12 +56,12 @@ class DeliverymenController {
         canceled_at: null,
         end_date: delivered
           ? {
-              [Op.ne]: null,
+              [Op.not]: null,
             }
           : null,
       },
       order: [['id', 'ASC']],
-      attributes: ['id', 'product', 'start_date'],
+      attributes: ['id', 'product', 'start_date', 'end_date'],
       limit: 5,
       offset: (page - 1) * 5,
       include: [
