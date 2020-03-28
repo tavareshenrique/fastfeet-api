@@ -1,4 +1,5 @@
 import { Op } from 'sequelize';
+import crypto from 'crypto';
 
 import Deliverymen from '../models/Deliverymen';
 import File from '../models/File';
@@ -81,11 +82,16 @@ class DeliverymenController {
   }
 
   async store(req, res) {
-    const { name, email } = await Deliverymen.create(req.body);
+    const { name, email, avatar_id } = req.body;
+    const id = await crypto.randomBytes(4).toString('HEX');
+
+    await Deliverymen.create({ id, name, email, avatar_id });
 
     return res.json({
+      id,
       name,
       email,
+      avatar_id,
     });
   }
 
