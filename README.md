@@ -3,7 +3,7 @@
 </h1>
 
 <h3 align="center">
-  FastFeet is an application for a fictional shipping company, FastFeet. This application is for Rocketseat Bootcamp certification and this Back-End was built in NodeJS.
+  FastFeet is an application for a fictional shipping company, FastFeet. This application is for Rocketseat Bootcamp certification and this Back-End was developed using NodeJS.
 </h3>
 
 ---
