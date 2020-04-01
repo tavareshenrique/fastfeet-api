@@ -78,6 +78,7 @@ class OrderController {
     const { name: nameDeliveryman, email } = await Deliverymen.findByPk(
       deliveryman_id
     );
+
     const {
       name: nameRecipient,
       street,
