@@ -51,6 +51,18 @@ class DeliverymenController {
     const { id } = req.params;
     const { delivered, page = 1 } = req.query;
 
+    const orderCount = await Order.count({
+      where: {
+        deliveryman_id: id,
+        canceled_at: null,
+        end_date: delivered
+          ? {
+              [Op.not]: null,
+            }
+          : null,
+      },
+    });
+
     const order = await Order.findAll({
       where: {
         deliveryman_id: id,
@@ -61,7 +73,7 @@ class DeliverymenController {
             }
           : null,
       },
-      order: [['id', 'ASC']],
+      order: [['updated_at', 'DESC']],
       attributes: ['id', 'product', 'start_date', 'end_date'],
       limit: 5,
       offset: (page - 1) * 5,
@@ -78,12 +90,15 @@ class DeliverymenController {
       ],
     });
 
+    res.header('X-Total-Page-Count', Math.ceil(orderCount / 5));
+
     return res.json(order);
   }
 
   async store(req, res) {
     const { name, email, avatar_id } = req.body;
-    const id = await crypto.randomBytes(4).toString('HEX');
+    const cryptoId = await crypto.randomBytes(4).toString('HEX');
+    const id = cryptoId.toUpperCase();
 
     await Deliverymen.create({ id, name, email, avatar_id });
 
