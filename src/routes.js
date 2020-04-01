@@ -33,7 +33,22 @@ routes.post('/users', validateUserStore, UserController.store);
 routes.post('/sessions', validateSessionStore, SessionController.store);
 routes.get('/deliverymen', DeliverymenController.index);
 routes.get('/deliverymen/:id/deliveries', DeliverymenController.show);
+routes.put(
+  '/deliverymen/:idDeliveryman/orders/:idOrder/status',
+  validateOrderStatusUpdate,
+  OrderStatusController.update
+);
 routes.get('/delivery/:id/problems', DeliveryProblemsController.show);
+routes.post(
+  '/delivery/:id/problems',
+  validateDeliveryProblemsStore,
+  DeliveryProblemsController.store
+);
+routes.post(
+  '/signatures',
+  upload.single('signatures'),
+  SignatureController.store
+);
 
 routes.use(authMiddleware);
 
@@ -61,11 +76,7 @@ routes.put(
   validateDeliverymanUpdate,
   DeliverymenController.update
 );
-routes.put(
-  '/deliverymen/:idDeliveryman/orders/:idOrder/status',
-  validateOrderStatusUpdate,
-  OrderStatusController.update
-);
+
 routes.delete('/deliverymen/:id', DeliverymenController.delete);
 
 // Orders
@@ -77,22 +88,12 @@ routes.delete('/orders/:id', OrderController.delete);
 
 // Delivery
 routes.get('/delivery/problems', DeliveryProblemsController.index);
-routes.post(
-  '/delivery/:id/problems',
-  validateDeliveryProblemsStore,
-  DeliveryProblemsController.store
-);
 routes.delete(
   '/delivery/:id/cancel-delivery',
   DeliveryProblemsController.delete
 );
 
-// Files && Signature
+// Files
 routes.post('/files', upload.single('file'), FileController.store);
-routes.post(
-  '/signatures',
-  upload.single('signatures'),
-  SignatureController.store
-);
 
 export default routes;
