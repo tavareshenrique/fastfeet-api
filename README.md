@@ -2,6 +2,11 @@
   <img alt="Fastfeet" title="Fastfeet" src="logo.png" width="300px" />
 </h1>
 
+<p align="center">
+  <img alt="License" src="https://img.shields.io/github/license/tavareshenrique/fastfeet-api">
+</p>
+
+
 <h3 align="center">
   FastFeet is an application for a fictional shipping company, FastFeet. This application is for Rocketseat Bootcamp certification and this Back-End was developed using NodeJS.
 </h3>
