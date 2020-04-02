@@ -1182,3 +1182,7 @@ Signature File.
     </td>
   </tr>
 </table>
+
+## License
+
+This project is licensed under the MIT license - see the archive [LICENSE.md](https://github.com/tavareshenrique/fastfeet-api/blob/master/LICENSE.md) for details.
