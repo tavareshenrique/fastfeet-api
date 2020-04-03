@@ -20,7 +20,7 @@
 <div align="center"><a href="https://insomnia.rest/run/?label=FastFeet%20API&uri=https%3A%2F%2Fraw.githubusercontent.com%2Ftavareshenrique%2Ffastfeet-api%2Fmaster%2Finsomnia%2Fexport.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a></div>
 
 <p align="center">
-  FastFeet is an application for a fictional shipping company, FastFeet. This application is for Rocketseat Bootcamp certification and this Back-End was developed using NodeJS.
+  FastFeet is an application for a fictional shipping company, FastFeet. This application is for Rocketseat Bootcamp certification and this API was developed using NodeJS.
 </p>
 
 <h4 align="center">
