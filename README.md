@@ -2,15 +2,30 @@
   <img alt="Fastfeet" title="Fastfeet" src="logo.png" width="300px" />
 </h1>
 
-<h3 align="center">
-  FastFeet is an application for a fictional shipping company, FastFeet. This application is for Rocketseat Bootcamp certification and this Back-End was developed using NodeJS.
-</h3>
+<p align="center">
+  <img alt="Last commit on GitHub" src="https://img.shields.io/github/last-commit/tavareshenrique/fastfeet-api?color=7D40E7">
+  <img alt="Made by Henrique Tavares" src="https://img.shields.io/badge/made%20by-Henrique Tavares-%20?color=7D40E7">
+  <img alt="Project top programing language" src="https://img.shields.io/github/languages/top/tavareshenrique/fastfeet-api?color=7D40E7">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/tavareshenrique/fastfeet-api?color=7D40E7">
+  <img alt="GitHub license" src="https://img.shields.io/github/license/tavareshenrique/fastfeet-api?color=7D40E7">
+</p>
 
----
+<p align="center">
+  <a href="#information_source-content">ℹ️ Content</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#rocket-technologies">🚀 Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#computer-author">💻 Author</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#memo-license">📝 License</a>
+</p>
 
 <div align="center"><a href="https://insomnia.rest/run/?label=FastFeet%20API&uri=https%3A%2F%2Fraw.githubusercontent.com%2Ftavareshenrique%2Ffastfeet-api%2Fmaster%2Finsomnia%2Fexport.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a></div>
 
-## Content
+<p align="center">
+  FastFeet is an application for a fictional shipping company, FastFeet. This application is for Rocketseat Bootcamp certification and this Back-End was developed using NodeJS.
+</p>
+
+---
+
+# :information_source: Content
 
 - [User](#user)
   - [Store](#store-user)
@@ -1131,7 +1146,7 @@ Signature File.
 
 ---
 
-## Technologies
+## :rocket: Technologies
 
 - [Express](https://expressjs.com/pt-br/)
 - [Nodemon](https://nodemon.io/)
@@ -1165,7 +1180,7 @@ Signature File.
 
 ---
 
-## Author
+## :computer: Author
 
 <table>
   <tr>
@@ -1178,11 +1193,13 @@ Signature File.
         </sub>
        </a>
        <br />
+       <a href="https://www.linkedin.com/in/tavareshenrique/" title="Linkedin">@tavareshenrique</a>
+       <br />
        <a href="https://github.com/tavareshenrique/fastfeet-api/commits?author=tavareshenrique" title="Code">💻</a>
     </td>
   </tr>
 </table>
 
-## License
+## :memo: License
 
 This project is licensed under the MIT license - see the archive [LICENSE.md](https://github.com/tavareshenrique/fastfeet-api/blob/master/LICENSE.md) for details.
