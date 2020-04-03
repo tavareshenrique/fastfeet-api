@@ -21,8 +21,11 @@
 
 <p align="center">
   FastFeet is an application for a fictional shipping company, FastFeet. This application is for Rocketseat Bootcamp certification and this Back-End was developed using NodeJS.
-  ⚠️ This project also has integration testing and unit testing. ⚠️
 </p>
+
+<h4 align="center">
+  ⚠️ This project also has integration testing and unit testing. ⚠️
+</h4>
 
 ---
 
