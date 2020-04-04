@@ -7,6 +7,7 @@ import Signature from '../models/Signature';
 
 import OrderMail from '../jobs/OrderMail';
 import Queue from '../../lib/Queue';
+import Cache from '../../lib/Cache';
 
 import {
   ERROR_ORDER_NOT_FOUND,
@@ -107,6 +108,8 @@ class OrderController {
       zipcode,
     });
 
+    await Cache.invalidatePrefix(`deliveryman:${deliveryman_id}`);
+
     return res.json({
       recipient_id,
       deliveryman_id,
@@ -145,6 +148,8 @@ class OrderController {
       end_date,
     } = await order.update(req.body);
 
+    await Cache.invalidatePrefix(`deliveryman:${order.deliveryman_id}`);
+
     return res.json({
       recipient_id,
       deliveryman_id,
@@ -160,6 +165,8 @@ class OrderController {
     const { id } = req.params;
 
     const order = await Order.findByPk(id);
+
+    await Cache.invalidatePrefix(`deliveryman:${order.deliveryman_id}`);
 
     await order.destroy();
 

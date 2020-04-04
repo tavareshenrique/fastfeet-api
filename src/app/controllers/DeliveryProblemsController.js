@@ -4,6 +4,7 @@ import Deliverymen from '../models/Deliverymen';
 
 import CancelDelivery from '../jobs/CancelDelivery';
 import Queue from '../../lib/Queue';
+import Cache from '../../lib/Cache';
 
 import { ERROR_DELIVERY_PROBLEM_DOESNT_EXISTS } from '../utils/errorMessages';
 
@@ -33,6 +34,12 @@ class DeliveryProblemsController {
   async show(req, res) {
     const { id } = req.params;
 
+    const cached = await Cache.get('problems');
+
+    if (cached) {
+      return res.json(cached);
+    }
+
     const deliveryProblems = await DeliveryProblems.findAll({
       where: {
         delivery_id: id,
@@ -60,6 +67,8 @@ class DeliveryProblemsController {
         .json({ error: ERROR_DELIVERY_PROBLEM_DOESNT_EXISTS });
     }
 
+    await Cache.set('problems', deliveryProblems);
+
     return res.json(deliveryProblems);
   }
 
@@ -71,6 +80,8 @@ class DeliveryProblemsController {
       delivery_id: id,
       description,
     });
+
+    await Cache.invalidate('problems');
 
     return res.json({ id, description });
   }
@@ -98,6 +109,8 @@ class DeliveryProblemsController {
       email: order.deliveryman.email,
       product: order.product,
     });
+
+    await Cache.invalidate('problems');
 
     return res.send();
   }

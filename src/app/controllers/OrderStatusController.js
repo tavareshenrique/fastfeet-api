@@ -13,6 +13,8 @@ import Deliverymen from '../models/Deliverymen';
 import Recipient from '../models/Recipient';
 import Signature from '../models/Signature';
 
+import Cache from '../../lib/Cache';
+
 import {
   ERROR_ORDER_NOT_FOUND,
   ERROR_START_TIME_NOT_ALLOWED,
@@ -137,6 +139,8 @@ class OrderStatusController {
         },
       ],
     });
+
+    await Cache.invalidatePrefix(`deliveryman:${idDeliveryman}`);
 
     return res.json(orderUpdate);
   }

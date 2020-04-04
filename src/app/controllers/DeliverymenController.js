@@ -7,6 +7,10 @@ import Order from '../models/Order';
 import Recipient from '../models/Recipient';
 import Signature from '../models/Signature';
 
+import OrderPaginateService from '../services/OrderPaginateService';
+
+import Cache from '../../lib/Cache';
+
 import {
   ERROR_DELIVERYMEN_NOT_FOUND,
   ERROR_DELIVERYMEN_ALREADY_EXISTS,
@@ -56,17 +60,20 @@ class DeliverymenController {
     const { id } = req.params;
     const { delivered, page = 1 } = req.query;
 
-    const orderCount = await Order.count({
-      where: {
-        deliveryman_id: id,
-        canceled_at: null,
-        end_date: delivered
-          ? {
-              [Op.not]: null,
-            }
-          : null,
-      },
+    const cacheKey = `deliveryman:${id}:${page}:${delivered || false}`;
+
+    const orderCount = await OrderPaginateService.run({
+      id,
+      delivered,
     });
+
+    res.header('X-Total-Page-Count', Math.ceil(orderCount / 5));
+
+    const cached = await Cache.get(cacheKey);
+
+    if (cached) {
+      return res.json(cached);
+    }
 
     const order = await Order.findAll({
       where: {
@@ -95,7 +102,7 @@ class DeliverymenController {
       ],
     });
 
-    res.header('X-Total-Page-Count', Math.ceil(orderCount / 5));
+    await Cache.set(cacheKey, order);
 
     return res.json(order);
   }
