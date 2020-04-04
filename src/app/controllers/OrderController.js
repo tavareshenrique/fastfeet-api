@@ -8,6 +8,11 @@ import Signature from '../models/Signature';
 import OrderMail from '../jobs/OrderMail';
 import Queue from '../../lib/Queue';
 
+import {
+  ERROR_ORDER_NOT_FOUND,
+  ERROR_START_TIME_NOT_ALLOWED,
+} from '../utils/errorMessages';
+
 class OrderController {
   async index(req, res) {
     const { product: productName } = req.query;
@@ -63,7 +68,7 @@ class OrderController {
 
     if (!order) {
       return res.status(400).json({
-        error: 'Order not found.',
+        error: ERROR_ORDER_NOT_FOUND,
       });
     }
 
@@ -117,7 +122,7 @@ class OrderController {
 
     if (!order) {
       return res.status(400).json({
-        error: 'Order not found.',
+        error: ERROR_ORDER_NOT_FOUND,
       });
     }
 
@@ -126,7 +131,7 @@ class OrderController {
 
       if (hourStart < 8 || hourStart > 18) {
         return res.status(400).json({
-          error: 'Start time not allowed.',
+          error: ERROR_START_TIME_NOT_ALLOWED,
         });
       }
     }

@@ -7,6 +7,11 @@ import Order from '../models/Order';
 import Recipient from '../models/Recipient';
 import Signature from '../models/Signature';
 
+import {
+  ERROR_DELIVERYMEN_NOT_FOUND,
+  ERROR_DELIVERYMEN_ALREADY_EXISTS,
+} from '../utils/errorMessages';
+
 class DeliverymenController {
   async index(req, res) {
     const { name: nameParam, id: idParam } = req.query;
@@ -118,7 +123,7 @@ class DeliverymenController {
 
     if (!deliveryman) {
       return res.status(400).json({
-        error: 'Deliveryman not found.',
+        error: ERROR_DELIVERYMEN_NOT_FOUND,
       });
     }
 
@@ -131,7 +136,7 @@ class DeliverymenController {
 
       if (userExists) {
         return res.status(400).json({
-          error: 'Deliveryman already exists.',
+          error: ERROR_DELIVERYMEN_ALREADY_EXISTS,
         });
       }
     }

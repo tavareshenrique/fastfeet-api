@@ -13,6 +13,17 @@ import Deliverymen from '../models/Deliverymen';
 import Recipient from '../models/Recipient';
 import Signature from '../models/Signature';
 
+import {
+  ERROR_ORDER_NOT_FOUND,
+  ERROR_START_TIME_NOT_ALLOWED,
+  ERROR_START_DELIVERY_ORDER_AT_FUTURE_DATE,
+  ERROR_START_DATE_HAS_PASSED,
+  ERROR_MAXIMUM_NUMBER_TAKEN,
+  ERROR_SIGNATURE_NOT_INFORMED,
+  ERROR_NOT_POSSIBLE_DELIVER_AT_FUTURE_DATE,
+  ERROR_DELIVERY_DATE_HAS_PASSED,
+} from '../utils/errorMessages';
+
 class OrderStatusController {
   async update(req, res) {
     const { start_date, end_date, signature_id } = req.body;
@@ -28,7 +39,7 @@ class OrderStatusController {
     });
 
     if (!order) {
-      return res.status(400).json({ error: 'Order not found.' });
+      return res.status(400).json({ error: ERROR_ORDER_NOT_FOUND });
     }
 
     if (start_date) {
@@ -43,14 +54,13 @@ class OrderStatusController {
 
       if (isAfter(startDate, dateNow)) {
         return res.status(400).json({
-          error:
-            'It is not possible to start delivery of an order at a future date.',
+          error: ERROR_START_DELIVERY_ORDER_AT_FUTURE_DATE,
         });
       }
 
       if (isBefore(startDate, dateNow)) {
         return res.status(400).json({
-          error: 'Start date has passed.',
+          error: ERROR_START_DATE_HAS_PASSED,
         });
       }
 
@@ -62,12 +72,12 @@ class OrderStatusController {
       });
 
       if (hourStart < 8 || hourStart > 18) {
-        return res.status(400).json({ error: 'Start time not allowed.' });
+        return res.status(400).json({ error: ERROR_START_TIME_NOT_ALLOWED });
       }
 
       if (orderDeliverymanCount > 5) {
         return res.status(400).json({
-          error: 'Maximum number of taken per day reached (5).',
+          error: ERROR_MAXIMUM_NUMBER_TAKEN,
         });
       }
     }
@@ -82,18 +92,18 @@ class OrderStatusController {
 
       if (isAfter(endDate, dateNow)) {
         return res.status(400).json({
-          error: 'It is not possible to deliver an order at a future date.',
+          error: ERROR_NOT_POSSIBLE_DELIVER_AT_FUTURE_DATE,
         });
       }
 
       if (isBefore(endDate, dateNow)) {
         return res.status(400).json({
-          error: 'Delivery date has passed.',
+          error: ERROR_DELIVERY_DATE_HAS_PASSED,
         });
       }
 
       if (!signature_id) {
-        return res.status(400).json({ error: 'Signature not informed.' });
+        return res.status(400).json({ error: ERROR_SIGNATURE_NOT_INFORMED });
       }
     }
 

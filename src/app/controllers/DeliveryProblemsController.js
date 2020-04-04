@@ -5,6 +5,8 @@ import Deliverymen from '../models/Deliverymen';
 import CancelDelivery from '../jobs/CancelDelivery';
 import Queue from '../../lib/Queue';
 
+import { ERROR_DELIVERY_PROBLEM_DOESNT_EXISTS } from '../utils/errorMessages';
+
 class DeliveryProblemsController {
   async index(req, res) {
     const deliveryProblems = await DeliveryProblems.findAll({
@@ -55,7 +57,7 @@ class DeliveryProblemsController {
     if (!deliveryProblems) {
       return res
         .status(400)
-        .json({ error: 'Delivery Problem for this order doesnt exists.' });
+        .json({ error: ERROR_DELIVERY_PROBLEM_DOESNT_EXISTS });
     }
 
     return res.json(deliveryProblems);
