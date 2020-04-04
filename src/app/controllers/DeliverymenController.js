@@ -8,6 +8,7 @@ import Recipient from '../models/Recipient';
 import Signature from '../models/Signature';
 
 import OrderPaginateService from '../services/OrderPaginateService';
+import GenerateIdService from '../services/GenerateIdService';
 
 import Cache from '../../lib/Cache';
 
@@ -109,8 +110,7 @@ class DeliverymenController {
 
   async store(req, res) {
     const { name, email, avatar_id } = req.body;
-    const cryptoId = await crypto.randomBytes(4).toString('HEX');
-    const id = cryptoId.toUpperCase();
+    const id = await GenerateIdService.run();
 
     await Deliverymen.create({ id, name, email, avatar_id });
 
