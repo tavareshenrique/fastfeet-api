@@ -8,6 +8,8 @@ import {
   isBefore,
 } from 'date-fns';
 
+import sequelize from 'sequelize';
+
 import Order from '../models/Order';
 import Deliverymen from '../models/Deliverymen';
 import Recipient from '../models/Recipient';
@@ -33,6 +35,12 @@ class OrderStatusController {
 
     const dateNow = new Date();
     dateNow.setHours(0, 0, 0, 0);
+
+    const date = dateNow.getDate();
+    const month = dateNow.getMonth();
+    const year = dateNow.getFullYear();
+
+    const dateToday = `${date}-${month + 1}-${year}`;
 
     const order = await Order.findByPk(idOrder, {
       where: {
@@ -69,7 +77,11 @@ class OrderStatusController {
       const orderDeliverymanCount = await Order.count({
         where: {
           deliveryman_id: idDeliveryman,
-          start_date: parseISO(start_date),
+          start_date: sequelize.where(
+            sequelize.fn('date', sequelize.col('start_date')),
+            '=',
+            dateToday
+          ),
         },
       });
 
