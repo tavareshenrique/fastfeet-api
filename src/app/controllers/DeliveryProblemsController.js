@@ -6,8 +6,6 @@ import CancelDelivery from '../jobs/CancelDelivery';
 import Queue from '../../lib/Queue';
 import Cache from '../../lib/Cache';
 
-import { ERROR_DELIVERY_PROBLEM_DOESNT_EXISTS } from '../utils/errorMessages';
-
 class DeliveryProblemsController {
   async index(req, res) {
     const deliveryProblems = await DeliveryProblems.findAll({
@@ -36,10 +34,6 @@ class DeliveryProblemsController {
 
     const cached = await Cache.get('problems');
 
-    if (cached) {
-      return res.json(cached);
-    }
-
     const deliveryProblems = await DeliveryProblems.findAll({
       where: {
         delivery_id: id,
@@ -61,10 +55,8 @@ class DeliveryProblemsController {
       ],
     });
 
-    if (!deliveryProblems) {
-      return res
-        .status(400)
-        .json({ error: ERROR_DELIVERY_PROBLEM_DOESNT_EXISTS });
+    if (cached) {
+      return res.json(cached);
     }
 
     await Cache.set('problems', deliveryProblems);

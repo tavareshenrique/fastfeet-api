@@ -12,12 +12,12 @@ import databaseConfig from '../config/database';
 
 const models = [
   User,
-  Recipient,
-  File,
-  Deliverymen,
-  Signature,
-  Order,
   DeliveryProblems,
+  Recipient,
+  Deliverymen,
+  Order,
+  File,
+  Signature,
 ];
 
 class Database {

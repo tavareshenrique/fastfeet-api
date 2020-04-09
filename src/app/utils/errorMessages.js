@@ -2,10 +2,6 @@
 export const ERROR_DELIVERYMEN_NOT_FOUND = 'Deliveryman not found.';
 export const ERROR_DELIVERYMEN_ALREADY_EXISTS = 'Deliveryman already exists.';
 
-// DeliveryProblemsController
-export const ERROR_DELIVERY_PROBLEM_DOESNT_EXISTS =
-  'Delivery Problem for this order doesnt exists.';
-
 // OrderController && OrderStatusController
 export const ERROR_ORDER_NOT_FOUND = 'Order not found.';
 export const ERROR_START_TIME_NOT_ALLOWED = 'Start time not allowed.';

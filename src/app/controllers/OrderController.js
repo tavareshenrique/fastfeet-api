@@ -77,7 +77,7 @@ class OrderController {
   }
 
   async store(req, res) {
-    const { recipient_id, deliveryman_id, product } = await Order.create(
+    const { id, recipient_id, deliveryman_id, product } = await Order.create(
       req.body
     );
 
@@ -111,6 +111,7 @@ class OrderController {
     await Cache.invalidatePrefix(`deliveryman:${deliveryman_id}`);
 
     return res.json({
+      id,
       recipient_id,
       deliveryman_id,
       product,

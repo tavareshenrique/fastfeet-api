@@ -1,5 +1,4 @@
 import { Op } from 'sequelize';
-import crypto from 'crypto';
 
 import Deliverymen from '../models/Deliverymen';
 import File from '../models/File';
