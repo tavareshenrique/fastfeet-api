@@ -13,9 +13,7 @@ describe('User', () => {
   });
 
   it('should be able to register', async () => {
-    const response = await request(app)
-      .post('/users')
-      .send(fakerUser);
+    const response = await request(app).post('/users').send(fakerUser);
 
     expect(response.body).toHaveProperty('id');
   });
@@ -23,13 +21,11 @@ describe('User', () => {
   it('should not be able to register when user already exists', async () => {
     const { name, email, password } = await factory.create('User');
 
-    const response = await request(app)
-      .post('/users')
-      .send({
-        name,
-        email,
-        password,
-      });
+    const response = await request(app).post('/users').send({
+      name,
+      email,
+      password,
+    });
 
     expect(response.status).toBe(400);
   });
@@ -88,12 +84,10 @@ describe('User', () => {
   it('should not register a user when field is required', async () => {
     const { email, password } = fakerUser;
 
-    const response = await request(app)
-      .post('/users')
-      .send({
-        email,
-        password,
-      });
+    const response = await request(app).post('/users').send({
+      email,
+      password,
+    });
 
     expect(response.status).toBe(400);
   });

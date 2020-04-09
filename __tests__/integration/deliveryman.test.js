@@ -3,6 +3,8 @@ import request from 'supertest';
 import app from '../../src/app';
 import truncate from '../utils/truncate';
 
+import GenerateIdService from '../../src/app/services/GenerateIdService';
+
 import fakerDeliveryman from '../utils/faker/fakerDeliveryman';
 
 import factory from '../factories';
@@ -25,11 +27,8 @@ describe('Deliveryman', () => {
 
   it('should be list all deliverymen when authenticated', async () => {
     await factory.create('Deliverymen');
-    const user = await factory.create('User');
 
-    const response = await request(app)
-      .get('/deliverymen')
-      .set('Authorization', `Bearer ${user.generateToken()}`);
+    const response = await request(app).get('/deliverymen');
 
     expect(response.status).toBe(200);
   });
@@ -47,9 +46,12 @@ describe('Deliveryman', () => {
   });
 
   it('should not be update deliverymen when user deliveryman already exists', async () => {
+    const idDeliveryman1 = await GenerateIdService.run();
     const deliveryman1 = await factory.create('Deliverymen', {
+      id: idDeliveryman1,
       email: 'ihenrits@gmail.com',
     });
+
     const deliveryman2 = await factory.create('Deliverymen');
 
     const user = await factory.create('User');
