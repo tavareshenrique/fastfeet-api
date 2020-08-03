@@ -35,7 +35,7 @@
     "redis": "^3.0.2",
     "sequelize": "^6.2.3",
     "youch": "^2.0.10",
-    "yup": "0.29.1"
+    "yup": "0.29.2"
   },
   "devDependencies": {
     "@sucrase/jest-plugin": "^2.0.0",
